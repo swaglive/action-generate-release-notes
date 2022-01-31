@@ -1,0 +1,53 @@
+name: Generate Release Notes
+description: Generate release notes content for a release
+inputs:
+  tag:
+    description: The tag name for the release
+    required: true
+    default: ${{ github.ref_name }}
+  base:
+    description: The name of the previous tag to use as the starting point for the release notes
+    required: false
+  token:
+    description: Github Token
+    required: true
+    default: ${{ github.token }}
+  repository:
+    description: Repository to create the release for
+    required: true
+    default: ${{ github.repository }}
+outputs:
+  title:
+    description: Generated release title
+    value: ${{ steps.notes.outputs.title }}
+  # body:
+  #   description: Generated release body
+  #   value: ${{ steps.notes.outputs.body }}
+  json:
+    description: Generated release as JSON
+    value: ${{ steps.notes.outputs.json }}
+runs:
+  using: composite
+  steps:
+  - shell: bash
+    id: notes
+    env:
+      GITHUB_TOKEN: ${{ inputs.token }}
+      GH_REPO: ${{ inputs.repository }}
+    run: |
+      notes=$(
+        jq -n \
+          --argjson tag_name '${{ toJSON(inputs.tag) }}' \
+          --argjson previous_tag_name '${{ toJSON(inputs.base || null) }}' \
+          '{
+            tag_name: $tag_name,
+            previous_tag_name: $previous_tag_name,
+          } | del(.[] | select(. == null))' \
+        | gh api repos/$GH_REPO/releases/generate-notes --input - | jq -c
+      )
+
+      # NOTE: https://github.community/t/set-output-truncates-multiline-strings/16852/1
+
+      echo "::set-output name=title::$(jq -rc '.name' <<< $notes)"
+      echo "::set-output name=body::$(jq -c '.body' <<< $notes)"
+      echo "::set-output name=json::$(jq -c '{title: .name, body}' <<< $notes)"
