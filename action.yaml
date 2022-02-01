@@ -34,7 +34,7 @@ runs:
     env:
       GITHUB_TOKEN: ${{ inputs.token }}
       GH_REPO: ${{ inputs.repository }}
-      OPTS:
+      OPTS: |
         tag_name: ${{ inputs.tag }}
         previous_tag_name: ${{ inputs.base }}
     run: |
