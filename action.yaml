@@ -17,12 +17,12 @@ inputs:
     required: true
     default: ${{ github.repository }}
 outputs:
-  title:
-    description: Generated release title
-    value: ${{ steps.notes.outputs.title }}
-  # body:
-  #   description: Generated release body
-  #   value: ${{ steps.notes.outputs.body }}
+  name:
+    description: Generated release name
+    value: ${{ steps.notes.outputs.name }}
+  body:
+    description: Generated release body as JSON string
+    value: ${{ steps.notes.outputs.body }}
   json:
     description: Generated release as JSON
     value: ${{ steps.notes.outputs.json }}
@@ -34,20 +34,15 @@ runs:
     env:
       GITHUB_TOKEN: ${{ inputs.token }}
       GH_REPO: ${{ inputs.repository }}
+      OPTS:
+        tag_name: ${{ inputs.tag }}
+        previous_tag_name: ${{ inputs.base }}
     run: |
       notes=$(
-        jq -n \
-          --argjson tag_name '${{ toJSON(inputs.tag) }}' \
-          --argjson previous_tag_name '${{ toJSON(inputs.base || null) }}' \
-          '{
-            tag_name: $tag_name,
-            previous_tag_name: $previous_tag_name,
-          } | del(.. | nulls)' \
-        | gh api repos/$GH_REPO/releases/generate-notes --input - | jq -c
+        yq e -o json <<< $OPTS | jq 'del(.. | nulls)' | gh api repos/$GH_REPO/releases/generate-notes --input - | jq -c
       )
 
       # NOTE: https://github.community/t/set-output-truncates-multiline-strings/16852/1
-
-      echo "::set-output name=title::$(jq -rc '.name' <<< $notes)"
+      echo "::set-output name=name::$(jq -rc '.name' <<< $notes)"
       echo "::set-output name=body::$(jq -c '.body' <<< $notes)"
-      echo "::set-output name=json::$(jq -c '{title: .name, body}' <<< $notes)"
+      echo "::set-output name=json::$(jq -c '{name, body}' <<< $notes)"
