@@ -42,7 +42,7 @@ runs:
           '{
             tag_name: $tag_name,
             previous_tag_name: $previous_tag_name,
-          } | del(.[] | select(. == null))' \
+          } | del(.. | nulls)' \
         | gh api repos/$GH_REPO/releases/generate-notes --input - | jq -c
       )
 
