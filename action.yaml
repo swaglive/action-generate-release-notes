@@ -39,7 +39,12 @@ runs:
         previous_tag_name: ${{ inputs.base }}
     run: |
       notes=$(
-        yq e -o json <<< $OPTS | jq 'del(.. | nulls)' | gh api repos/$GH_REPO/releases/generate-notes --input - | jq -c
+        yq e -o json <<< $OPTS \
+        | jq '
+          .previous_tag_name |= del(.. | select(. == true))
+          | del(.. | nulls)' \
+        | gh api repos/$GH_REPO/releases/generate-notes --input - \
+        | jq -c
       )
 
       # NOTE: https://github.community/t/set-output-truncates-multiline-strings/16852/1
