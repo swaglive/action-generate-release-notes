@@ -16,21 +16,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # - name: Generate Release Notes
-    #   uses: ./
-    #   env:
-    #     tag: v2
-
-    - id: notes
-      uses: actions/github-script@v7
-      with:
-        script: |
-          return await github.request('POST /repos/swaglive/action-generate-release-notes/releases/generate-notes', {
-            tag_name: 'v1',
-            previous_tag_name: '' || undefined,
-            headers: {
-              'X-GitHub-Api-Version': '2022-11-28',
-            },
-          })
-
-    - run: echo '${{ fromJSON(steps.notes.outputs.result).data.name }}'
+    - name: Generate Release Notes
+      id: release-notes
+      uses: ./
+      env:
+        tag: v2
+    
+    - run: echo '${{ steps.release-notes.outputs.name }} ${{ steps.release-notes.outputs.body }}'
