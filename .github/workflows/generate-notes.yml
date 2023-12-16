@@ -26,12 +26,13 @@ jobs:
       with:
         debug: true
         script: |
-          github.request('POST /repos/swaglive/action-generate-release-notes/releases/generate-notes', {
+          let { notes, body } = await github.request('POST /repos/swaglive/action-generate-release-notes/releases/generate-notes', {
             tag_name: 'v1',
             previous_tag_name: '' || undefined,
             headers: {
               'X-GitHub-Api-Version': '2022-11-28',
             },
           })
+          return '{"hello": "world"}'
 
     - run: echo '${{ steps.notes.outputs.results }}'
