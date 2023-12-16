@@ -41,4 +41,4 @@ runs:
         })
 
   - shell: bash
-    run: echo '${{ fromJSON(steps.notes.outputs.results) }}''
+    run: echo '${{ fromJSON(steps.notes.outputs.results) }}'
