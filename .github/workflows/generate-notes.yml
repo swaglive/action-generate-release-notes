@@ -34,4 +34,4 @@ jobs:
           })
           return data
 
-    - run: echo '${{ steps.notes.outputs.result }}'
+    - run: echo '${{ fromJSON(steps.notes.outputs.result).name }}'
