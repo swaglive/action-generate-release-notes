@@ -8,6 +8,10 @@ jobs:
   generate-notes:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      discussions: read
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
