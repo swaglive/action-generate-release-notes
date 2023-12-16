@@ -21,6 +21,7 @@ jobs:
       uses: ./
       env:
         tag: v2
+        base: v1
     
     - run: |-
         echo '# ${{ steps.release-notes.outputs.name }}' >> $GITHUB_STEP_SUMMARY
