@@ -6,6 +6,7 @@ on:
 
 jobs:
   generate-notes:
+    name: Generate Release Notes
     runs-on: ubuntu-latest
 
     permissions: read-all
