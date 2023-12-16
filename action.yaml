@@ -16,13 +16,13 @@ inputs:
     description: Repository to create the release for
     required: true
     default: ${{ github.repository }}
-# outputs:
-#   name:
-#     description: The generated name of the release
-#     value: ${{ fromJSON(steps.notes.outputs.results).name }}
-#   body:
-#     description: The generated body describing the contents of the release supporting markdown formatting
-#     value: ${{ fromJSON(steps.notes.outputs.results).body }}
+outputs:
+  name:
+    description: The generated name of the release
+    value: ${{ fromJSON(steps.notes.outputs.result).name }}
+  body:
+    description: The generated body describing the contents of the release supporting markdown formatting
+    value: ${{ fromJSON(steps.notes.outputs.result).body }}
 runs:
   using: composite
   steps:
@@ -44,4 +44,4 @@ runs:
         return results
 
   - shell: bash
-    run: echo '${{ fromJSON(steps.notes.outputs.results) }}'
+    run: echo '${{ fromJSON(steps.notes.outputs.result) }}'
