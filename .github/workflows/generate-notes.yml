@@ -23,5 +23,5 @@ jobs:
         tag: v2
     
     - run: |-
-      echo '# ${{ steps.release-notes.outputs.name }}' >> $GITHUB_STEP_SUMMARY
-      echo '${{ steps.release-notes.outputs.body }}' >> $GITHUB_STEP_SUMMARY
+        echo '# ${{ steps.release-notes.outputs.name }}' >> $GITHUB_STEP_SUMMARY
+        echo '${{ steps.release-notes.outputs.body }}' >> $GITHUB_STEP_SUMMARY
