@@ -1,6 +1,7 @@
 name: Generate Release Notes
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
