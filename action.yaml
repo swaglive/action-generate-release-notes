@@ -19,7 +19,7 @@ inputs:
 outputs:
   name:
     description: The generated name of the release
-    value: ${{ fromJSON(steps.notes.outputs.results)name }}
+    value: ${{ fromJSON(steps.notes.outputs.results).name }}
   body:
     description: The generated body describing the contents of the release supporting markdown formatting
     value: ${{ fromJSON(steps.notes.outputs.results).body }}
