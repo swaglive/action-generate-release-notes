@@ -25,13 +25,13 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          github.request('POST /repos/swaglive/action-generate-release-notes/releases/generate-notes', {
+          let { name, body } = await github.request('POST /repos/swaglive/action-generate-release-notes/releases/generate-notes', {
             tag_name: 'v1',
             previous_tag_name: '' || undefined,
             headers: {
               'X-GitHub-Api-Version': '2022-11-28',
             },
           })
-          return { result: 'success' }
+          return { name, body }
 
     - run: echo '${{ steps.notes.outputs.result }}'
