@@ -2,7 +2,8 @@
 Generate release notes content for a release
 
 * [`contents: write` permission is required](https://github.com/orgs/community/discussions/79377)
-  ```
+
+  ```yaml
   permissions:
     contents: write
   ```
