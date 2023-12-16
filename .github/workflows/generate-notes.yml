@@ -10,7 +10,6 @@ jobs:
 
     permissions:
       contents: write
-      discussions: read
 
     steps:
     - name: Checkout
