@@ -5,7 +5,7 @@ inputs:
     description: The tag name for the release. This can be an existing tag or a new one.
     required: true
     default: ${{ github.ref_name }}
-  previous_tag:
+  base:
     description: The name of the previous tag to use as the starting point for the release notes. Use to manually specify the range for the set of changes considered as part this release.
     required: false
   token:
@@ -33,7 +33,7 @@ runs:
       script: |
         github.request('POST /repos/${{ inputs.repository }}/releases/generate-notes', {
           tag_name: '${{ inputs.tag }}',
-          previous_tag_name: '${{ inputs.previous_tag }}' || undefined,
+          previous_tag_name: '${{ inputs.base }}' || undefined,
           headers: {
             'X-GitHub-Api-Version': '2022-11-28',
           },
