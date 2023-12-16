@@ -32,11 +32,12 @@ runs:
       github-token: ${{ inputs.token }}
       debug: true
       script: |
-        let { name, body } = await github.request('POST /repos/${{ inputs.repository }}/releases/generate-notes', {
+        let results = await github.request('POST /repos/${{ inputs.repository }}/releases/generate-notes', {
           tag_name: '${{ inputs.tag }}',
           previous_tag_name: '${{ inputs.base }}' || undefined,
           headers: {
             'X-GitHub-Api-Version': '2022-11-28',
           },
         })
-        return { name, body }
+        console.log(results)
+        return results
