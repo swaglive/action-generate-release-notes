@@ -48,6 +48,6 @@ runs:
       )
 
       # NOTE: https://github.community/t/set-output-truncates-multiline-strings/16852/1
-      echo "::set-output name=name::$(jq -rc '.name' <<< $notes)"
-      echo "::set-output name=body::$(jq -c '.body' <<< $notes)"
-      echo "::set-output name=json::$(jq -c '{name, body}' <<< $notes)"
+      echo "name=$(jq -rc '.name' <<< $notes)" >> $GITHUB_OUTPUT
+      echo "body=$(jq -c '.body' <<< $notes)" >> $GITHUB_OUTPUT
+      echo "json=$(jq -c '{name, body}' <<< $notes)" >> $GITHUB_OUTPUT
