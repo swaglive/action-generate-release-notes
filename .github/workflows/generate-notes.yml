@@ -9,7 +9,8 @@ jobs:
     name: Generate Release Notes
     runs-on: ubuntu-latest
 
-    permissions: read-all
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout
