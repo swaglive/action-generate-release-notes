@@ -1,6 +1,13 @@
 # Generate Release Notes
 Generate release notes content for a release
 
+### Notes
+* [`contents: write` permission is required](https://github.com/orgs/community/discussions/79377)
+  ```
+  permissions:
+    contents: write
+  ```
+
 ## Inputs
 * `tag`: The tag name for the release. This can be an existing tag or a new one.
   * Required: `true`
