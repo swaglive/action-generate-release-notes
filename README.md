@@ -1,7 +1,7 @@
 # Generate Release Notes
 Generate release notes content for a release
 
-### Notes
+##### Notes
 * [`contents: write` permission is required](https://github.com/orgs/community/discussions/79377)
   ```
   permissions:
