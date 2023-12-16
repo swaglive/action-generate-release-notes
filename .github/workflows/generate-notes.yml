@@ -8,8 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Generate Release Notes
-      uses: ./.github/actions/release-notes
+      uses: ./
       env:
-        tag: v1
+        tag: v2
         
