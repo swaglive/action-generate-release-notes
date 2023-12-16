@@ -30,6 +30,7 @@ runs:
     uses: actions/github-script@v7
     with:
       github-token: ${{ inputs.token }}
+      debug: true
       script: |
         github.request('POST /repos/${{ inputs.repository }}/releases/generate-notes', {
           tag_name: '${{ inputs.tag }}',
