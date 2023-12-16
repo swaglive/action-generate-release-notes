@@ -8,8 +8,7 @@ jobs:
   generate-notes:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
+    permissions: read-all
 
     steps:
     - name: Checkout
