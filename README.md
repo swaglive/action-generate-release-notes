@@ -1,4 +1,4 @@
-# DEPRECATED: Use [swaglive/action-create-release](/swaglive/action-create-release)
+# DEPRECATED: Use [swaglive/action-create-release](https://github.com/swaglive/action-create-release)
 
 # Generate Release Notes
 Generate release notes content for a release
